@@ -1,0 +1,191 @@
+2023-12-15 15:50:48,760 - INFO - handle_abnormal - 
+2023-12-15 16:03:02,296 - INFO - handle_buffer_is_full - 
+2023-12-15 16:03:02,414 - INFO - offset_reset - 
+2023-12-15 16:08:38,302 - INFO - offset_reset - 
+2023-12-15 16:08:38,308 - INFO - handle_buffer_is_full - 
+2023-12-15 16:25:51,048 - INFO - <module> - START PROGRAM
+2023-12-15 16:25:51,053 - INFO - <module> - START THREAD
+2023-12-15 16:26:26,313 - INFO - handle_buffer_is_full - 
+2023-12-15 16:26:26,416 - INFO - offset_reset - 
+2023-12-15 16:26:47,911 - INFO - offset_reset - 
+2023-12-15 16:26:47,916 - INFO - handle_buffer_is_full - 
+2023-12-15 16:27:09,514 - INFO - offset_reset - 
+2023-12-15 16:27:09,518 - INFO - handle_buffer_is_full - 
+2023-12-15 16:27:31,127 - INFO - handle_buffer_is_full - 
+2023-12-15 16:27:31,187 - INFO - offset_reset - 
+2023-12-15 16:27:52,730 - INFO - offset_reset - 
+2023-12-15 16:27:52,735 - INFO - handle_buffer_is_full - 
+2023-12-15 16:28:14,367 - INFO - offset_reset - 
+2023-12-15 16:28:14,369 - INFO - handle_buffer_is_full - 
+2023-12-15 16:28:35,928 - INFO - offset_reset - 
+2023-12-15 16:28:35,931 - INFO - handle_buffer_is_full - 
+2023-12-15 16:28:57,534 - INFO - offset_reset - 
+2023-12-15 16:28:57,540 - INFO - handle_buffer_is_full - 
+2023-12-15 16:29:19,124 - INFO - handle_buffer_is_full - 
+2023-12-15 16:29:40,737 - INFO - handle_buffer_is_full - 
+2023-12-15 16:30:02,323 - INFO - handle_buffer_is_full - 
+2023-12-15 16:30:23,925 - INFO - handle_buffer_is_full - 
+2023-12-15 16:30:45,530 - INFO - handle_buffer_is_full - 
+2023-12-15 16:31:07,129 - INFO - handle_buffer_is_full - 
+2023-12-15 16:31:28,747 - INFO - handle_buffer_is_full - 
+2023-12-15 16:31:50,331 - INFO - handle_buffer_is_full - 
+2023-12-15 16:34:11,950 - INFO - handle_buffer_is_full - 
+2023-12-15 16:34:33,540 - INFO - handle_buffer_is_full - 
+2023-12-15 16:34:55,176 - INFO - handle_buffer_is_full - 
+2023-12-15 16:35:16,771 - INFO - handle_buffer_is_full - 
+2023-12-15 16:35:38,343 - INFO - handle_buffer_is_full - 
+2023-12-15 16:35:59,939 - INFO - handle_buffer_is_full - 
+2023-12-15 16:36:21,565 - INFO - handle_buffer_is_full - 
+2023-12-15 16:36:43,172 - INFO - handle_buffer_is_full - 
+2023-12-15 16:37:04,772 - INFO - handle_buffer_is_full - 
+2023-12-15 16:37:20,121 - INFO - <module> - START PROGRAM
+2023-12-15 16:37:20,126 - INFO - <module> - START THREAD
+2023-12-15 16:37:57,233 - INFO - right_after_trig - 3
+2023-12-15 16:38:21,491 - INFO - handle_buffer_is_full - 
+2023-12-15 16:38:21,635 - INFO - offset_reset - 
+2023-12-15 16:38:43,087 - INFO - offset_reset - 
+2023-12-15 16:38:43,093 - INFO - handle_buffer_is_full - 
+2023-12-15 16:39:04,688 - INFO - offset_reset - 
+2023-12-15 16:39:04,691 - INFO - handle_buffer_is_full - 
+2023-12-15 16:39:26,318 - INFO - handle_buffer_is_full - 
+2023-12-15 16:39:26,379 - INFO - offset_reset - 
+2023-12-15 16:39:47,903 - INFO - offset_reset - 
+2023-12-15 16:39:47,910 - INFO - handle_buffer_is_full - 
+2023-12-15 16:40:09,501 - INFO - offset_reset - 
+2023-12-15 16:40:09,504 - INFO - handle_buffer_is_full - 
+2023-12-15 16:40:31,118 - INFO - offset_reset - 
+2023-12-15 16:40:31,122 - INFO - handle_buffer_is_full - 
+2023-12-15 16:40:52,702 - INFO - offset_reset - 
+2023-12-15 16:40:52,706 - INFO - handle_buffer_is_full - 
+2023-12-15 16:41:14,303 - INFO - handle_buffer_is_full - 
+2023-12-15 16:41:35,904 - INFO - handle_buffer_is_full - 
+2023-12-15 16:41:57,498 - INFO - handle_buffer_is_full - 
+2023-12-15 16:42:19,096 - INFO - handle_buffer_is_full - 
+2023-12-15 16:42:40,712 - INFO - handle_buffer_is_full - 
+2023-12-15 16:43:02,304 - INFO - handle_buffer_is_full - 
+2023-12-15 16:43:20,416 - INFO - <module> - START PROGRAM
+2023-12-15 16:43:20,420 - INFO - <module> - START THREAD
+2023-12-15 16:43:24,909 - INFO - right_after_trig - 3
+2023-12-15 16:44:32,764 - INFO - handle_buffer_is_full - 
+2023-12-15 16:44:32,867 - INFO - offset_reset - 
+2023-12-15 16:44:56,763 - INFO - offset_reset - 
+2023-12-15 16:44:56,768 - INFO - handle_buffer_is_full - 
+2023-12-15 16:45:18,354 - INFO - offset_reset - 
+2023-12-15 16:45:18,360 - INFO - handle_buffer_is_full - 
+2023-12-15 16:45:39,981 - INFO - handle_buffer_is_full - 
+2023-12-15 16:45:40,043 - INFO - offset_reset - 
+2023-12-15 16:46:01,583 - INFO - offset_reset - 
+2023-12-15 16:46:01,586 - INFO - handle_buffer_is_full - 
+2023-12-15 16:46:23,182 - INFO - offset_reset - 
+2023-12-15 16:46:23,191 - INFO - handle_buffer_is_full - 
+2023-12-15 16:46:44,815 - INFO - offset_reset - 
+2023-12-15 16:46:44,821 - INFO - handle_buffer_is_full - 
+2023-12-15 16:47:06,390 - INFO - offset_reset - 
+2023-12-15 16:47:06,394 - INFO - handle_buffer_is_full - 
+2023-12-15 16:47:27,965 - INFO - handle_buffer_is_full - 
+2023-12-15 16:47:49,565 - INFO - handle_buffer_is_full - 
+2023-12-15 16:48:11,186 - INFO - handle_buffer_is_full - 
+2023-12-15 16:48:32,781 - INFO - handle_buffer_is_full - 
+2023-12-15 16:48:54,376 - INFO - handle_buffer_is_full - 
+2023-12-15 16:49:15,971 - INFO - handle_buffer_is_full - 
+2023-12-15 16:49:37,591 - INFO - handle_buffer_is_full - 
+2023-12-15 16:49:59,184 - INFO - handle_buffer_is_full - 
+2023-12-15 16:50:20,787 - INFO - handle_buffer_is_full - 
+2023-12-15 16:52:42,401 - INFO - handle_buffer_is_full - 
+2023-12-15 16:53:03,988 - INFO - handle_buffer_is_full - 
+2023-12-15 16:53:25,600 - INFO - handle_buffer_is_full - 
+2023-12-15 16:53:47,194 - INFO - handle_buffer_is_full - 
+2023-12-15 16:54:08,792 - INFO - handle_buffer_is_full - 
+2023-12-15 16:54:30,388 - INFO - handle_buffer_is_full - 
+2023-12-15 16:54:51,991 - INFO - handle_buffer_is_full - 
+2023-12-15 16:55:13,591 - INFO - handle_buffer_is_full - 
+2023-12-15 16:55:35,200 - INFO - handle_buffer_is_full - 
+2023-12-15 16:55:56,818 - INFO - handle_buffer_is_full - 
+2023-12-15 16:56:18,400 - INFO - handle_buffer_is_full - 
+2023-12-15 16:56:40,026 - INFO - handle_buffer_is_full - 
+2023-12-15 17:03:28,156 - INFO - <module> - START PROGRAM
+2023-12-15 17:03:28,161 - INFO - <module> - START THREAD
+2023-12-15 17:07:27,038 - INFO - handle_buffer_is_full - 
+2023-12-15 17:08:16,342 - INFO - right_after_trig - 3
+2023-12-15 17:13:01,911 - INFO - handle_buffer_is_full - 
+2023-12-15 17:13:02,039 - INFO - offset_reset - 
+2023-12-15 17:16:38,514 - INFO - offset_reset - 
+2023-12-15 17:16:38,520 - INFO - handle_buffer_is_full - 
+2023-12-15 17:22:14,535 - INFO - offset_reset - 
+2023-12-15 17:22:14,543 - INFO - handle_buffer_is_full - 
+2023-12-15 17:40:12,775 - INFO - handle_sensor_not_respond - 
+2023-12-15 18:10:50,799 - INFO - handle_buffer_is_full - 
+2023-12-15 18:10:50,925 - INFO - offset_reset - 
+2023-12-15 18:15:27,037 - INFO - handle_buffer_is_full - 
+2023-12-15 18:15:27,055 - INFO - offset_reset - 
+2023-12-15 18:34:43,298 - INFO - handle_sensor_not_respond - 
+2023-12-15 18:39:37,369 - INFO - handle_buffer_is_full - 
+2023-12-15 18:39:37,403 - INFO - offset_reset - 
+2023-12-15 18:44:30,345 - INFO - handle_buffer_is_full - 
+2023-12-15 18:44:30,353 - INFO - offset_reset - 
+2023-12-15 18:48:40,152 - INFO - handle_buffer_is_full - 
+2023-12-15 18:48:40,170 - INFO - offset_reset - 
+2023-12-15 19:07:49,362 - INFO - handle_buffer_is_full - 
+2023-12-15 19:11:25,356 - INFO - handle_buffer_is_full - 
+2023-12-15 19:16:22,693 - INFO - handle_buffer_is_full - 
+2023-12-15 19:35:41,084 - INFO - handle_buffer_is_full - 
+2023-12-15 19:39:17,117 - INFO - handle_buffer_is_full - 
+2023-12-18 08:15:10,926 - INFO - <module> - START PROGRAM
+2023-12-18 08:15:10,931 - INFO - <module> - START THREAD
+2023-12-18 08:16:00,386 - INFO - right_after_trig - 3
+2023-12-18 08:19:37,682 - INFO - handle_buffer_is_full - 
+2023-12-18 08:19:37,883 - INFO - offset_reset - 
+2023-12-18 08:25:13,651 - INFO - offset_reset - 
+2023-12-18 08:25:13,657 - INFO - handle_buffer_is_full - 
+2023-12-18 08:42:58,799 - INFO - handle_sensor_not_respond - 
+2023-12-18 09:14:36,678 - INFO - offset_reset - 
+2023-12-18 09:14:36,685 - INFO - handle_buffer_is_full - 
+2023-12-18 09:18:12,733 - INFO - handle_buffer_is_full - 
+2023-12-18 09:18:13,018 - INFO - offset_reset - 
+2023-12-18 09:33:27,369 - INFO - handle_sensor_not_respond - 
+2023-12-18 09:43:23,204 - INFO - handle_buffer_is_full - 
+2023-12-18 09:43:23,232 - INFO - offset_reset - 
+2023-12-18 09:47:09,472 - INFO - handle_buffer_is_full - 
+2023-12-18 09:47:09,502 - INFO - offset_reset - 
+2023-12-18 09:51:52,886 - INFO - handle_buffer_is_full - 
+2023-12-18 09:51:52,913 - INFO - offset_reset - 
+2023-12-18 10:09:18,558 - INFO - handle_sensor_not_respond - 
+2023-12-18 10:11:28,089 - INFO - handle_buffer_is_full - 
+2023-12-18 10:11:28,118 - INFO - offset_reset - 
+2023-12-18 10:15:04,706 - INFO - handle_buffer_is_full - 
+2023-12-18 10:20:10,468 - INFO - handle_buffer_is_full - 
+2023-12-18 10:23:46,426 - INFO - handle_buffer_is_full - 
+2024-01-11 15:24:19,226 - INFO - MainThread - <module> - START PROGRAM
+2024-01-11 15:25:56,302 - INFO - MainThread - <module> - START PROGRAM
+2024-01-11 15:25:56,306 - INFO - MainThread - <module> - START THREAD
+2024-01-11 15:26:07,613 - INFO - hyd_monitor - right_after_trig - 3
+2024-01-16 13:15:03,989 - INFO - MainThread - <module> - START PROGRAM
+2024-01-16 13:15:03,992 - INFO - MainThread - <module> - START THREAD
+2024-01-16 13:19:28,504 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 13:21:06,453 - INFO - hyd_monitor - right_after_trig - 3
+2024-01-16 13:36:43,883 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-16 14:14:02,350 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 14:14:02,509 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 14:17:44,339 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 14:17:44,343 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 14:32:21,935 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-16 14:42:51,238 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 14:42:51,245 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 14:46:30,869 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 14:46:31,073 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 14:51:14,318 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 14:51:14,318 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 15:07:04,452 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-16 15:10:49,534 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 15:10:49,536 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 15:14:36,331 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 15:14:36,333 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 15:19:41,457 - INFO - hyd_monitor - offset_reset - 
+2024-01-16 15:19:41,460 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 15:23:17,457 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 15:35:32,615 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-16 15:42:46,653 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 15:55:49,750 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-16 16:09:21,487 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 16:12:59,898 - INFO - hyd_consumer - handle_buffer_is_full - 
+2024-01-16 16:14:26,907 - INFO - hyd_consumer - handle_sensor_not_respond - 
