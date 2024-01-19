@@ -26,7 +26,7 @@ filters = [
     {"can_id": 0x1CFD08AE, "can_mask": 0x1FFFFFFF, "extended": True }
 ]
 
-db = cantools.database.load_file('/usr/local/bin/VSS_J1939.dbc')
+db = cantools.database.load_file('VSS_J1939.dbc')
 bus = can.interface.Bus(channel=can_interface, bustype='socketcan', can_filters=filters)
 
 
@@ -35,6 +35,8 @@ if __name__ == '__main__':
         try:
             ops = bus.recv()
             decode_messages = db.decode_message(ops.arbitration_id, ops.data)
-            print(decode_messages)
+            print(ops.arbitration_id, decode_messages)
+            print(decode_messages.keys(), decode_messages.values())
         except Exception as e :
+            print(e)
             continue

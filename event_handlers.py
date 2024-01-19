@@ -1,5 +1,6 @@
 from funcs import *
-import plotly.graph_objs as go
+if FIGURE:
+    import plotly.graph_objs as go
 
 
 def offset_reset(data, count, origin_coef_dielec, origin_coef_visco):

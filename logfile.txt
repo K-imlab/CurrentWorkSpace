@@ -189,3 +189,17 @@
 2024-01-16 16:09:21,487 - INFO - hyd_consumer - handle_buffer_is_full - 
 2024-01-16 16:12:59,898 - INFO - hyd_consumer - handle_buffer_is_full - 
 2024-01-16 16:14:26,907 - INFO - hyd_consumer - handle_sensor_not_respond - 
+2024-01-19 04:27:48,683 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:27:54,208 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:29:53,390 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:29:58,924 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:31:11,487 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:31:17,083 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:32:49,914 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:32:55,575 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:35:14,418 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:35:19,972 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:36:39,192 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:36:44,783 - INFO - MainThread - <module> - START THREAD
+2024-01-19 04:37:52,483 - INFO - MainThread - <module> - START PROGRAM
+2024-01-19 04:37:58,082 - INFO - MainThread - <module> - START THREAD

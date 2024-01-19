@@ -4,11 +4,6 @@ from scipy import interpolate
 from scipy.optimize import curve_fit
 import uncertainties.unumpy as unp
 import uncertainties as unc
-from canlib import canlib
-from canlib import Frame
-
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 from logging.handlers import RotatingFileHandler
 import logging
@@ -32,9 +27,20 @@ LOG = True
 if LOG:
     logger = set_logger()
 
-FIGURE = True
+FIGURE = False
 if FIGURE:
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
     fig = make_subplots(rows=2, cols=2)
+
+INTERFACE = 'cantools'
+if INTERFACE == 'matfile':
+    from canlib import canlib
+    from canlib import Frame
+
+elif INTERFACE == 'cantools':
+    import can
+    import cantools
 
 TRIG_NONE = 0
 TRIG_ZERO_OH = 2
@@ -70,6 +76,54 @@ ENGINE = {'oil': 'engine', 'PERCENT_MARGIN_DIELECTRIC': 3, 'PERCENT_MARGIN_VISCO
 
 
 class Receiver:
+    def __init__(self):
+        events = [
+            {"can_id": 0x18EF4A28, "can_mask": 0x1FFFFFFF, "extended": True},
+            {"can_id": 0x18EFFFFF, "can_mask": 0x1FFFFFFF, "extended": True},
+            {"can_id": 0x18FFB334, "can_mask": 0x1FFFFFFF, "extended": True},
+        ]
+        periodics = [
+            {"can_id": 0x18FEEE3F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x18FF313F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFA673F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFD083F, "can_mask": 0x1FFFFFFF, "extended": True },
+            # {"can_id": 0x18FEEEAE, "can_mask": 0x1FFFFFFF, "extended": True },
+            # {"can_id": 0x18FF31AE, "can_mask": 0x1FFFFFFF, "extended": True },
+            # {"can_id": 0x1CFA67AE, "can_mask": 0x1FFFFFFF, "extended": True },
+            # {"can_id": 0x1CFD08AE, "can_mask": 0x1FFFFFFF, "extended": True }
+        ]
+        filters = periodics + events
+
+        self.db = cantools.database.load_file('VSS_J1939.dbc')  # FIXME 18FF31 DBC tnwjd
+        self.bus = can.interface.Bus(channel='can1', bustype='socketcan', can_filters=filters)
+        
+        self.msgs = [self.db.get_message_by_frame_id(e['can_id']) for e in periodics]
+        self.event_q = []
+
+        self.target_signals = ['OilAvrgTmp', 'StMsgCode', 'OilVcsty', 'Oildensity','Oildieleccst']
+        self.periodic_data = {key: None for key in self.target_signals}
+
+        self.event_signals = ['OilChange', 'SensorChange', 'ChangeVG', 'KeyStChange']
+
+    def receive(self,):
+        ops = self.bus.recv()
+        decode_messages = self.db.decode_message(ops.arbitration_id, ops.data)
+        signal_names = decode_messages.keys()
+        signal_value = decode_messages.values()
+        for name, value in zip(signal_names, signal_value):
+            if name in self.target_signals:
+                self.periodic_data[name] = value
+            elif name in self.event_signals:
+                self.event_q.append({'event': name, 'value': value})
+            else:
+                print("NOT MY BUSINESS", name, value)
+        return ops.arbitration_id, self.periodic_data, self.event_q
+    
+    def init_data(self):
+        self.periodic_data = {key: None for key in self.target_signals}
+
+
+class ReceiverMAT:
     def __init__(self):
         # variables
         self.ch = self._open_channel(0)
@@ -140,9 +194,9 @@ class Buffer:
         self.count = 0
 
     def append_data(self, data, unix_time):
-        dielectric = data['dielec']
+        dielectric = data['Oildieleccst']
         kine_viscosity = data['kine_viscosity']
-        temperature = data['temp']
+        temperature = data['OilAvrgTmp']
 
         self.q_dielec.pop(self.count)
         self.q_dielec.insert(self.count, dielectric)
@@ -295,7 +349,7 @@ class Sensor:
 
     def catch_sensor_out(self, data, sig_id):
         if sig_id == 0x18FF313F:  # FIXME can id 외부 관리
-            non_working = bool(data['status'])  # sensor status 프로토콜이 미정
+            non_working = bool(data['StMsgCode'])  # sensor status 프로토콜이 미정
             self.sensor_out_gauge = int(self.sensor_out_gauge * non_working) + int(non_working)
 
             if self.sensor_out_gauge >= SENSOR_OUT_TOLERANCE:
@@ -308,7 +362,8 @@ class Sensor:
         return sensor_out
 
     def catch_sensor_no_response(self, data, sig_id):
-        sensor_data = [data['visco'], data['density'], data['dielec'], data['temp'], data['status']]
+        # sensor_data = [data['visco'], data['density'], data['dielec'], data['temp'], data['status']]
+        sensor_data = [data['OilVcsty'], data['Oildensity'], data['Oildieleccst'], data['OilAvrgTmp'], data['StMsgCode']]
         try:
             check_response = sum(sensor_data)
             self.duration_from_latest_response = 0
@@ -345,3 +400,12 @@ class Sensor:
         self.prev_sensor_out = sensor_out
         self.prev_sensor_no_response = sensor_no_response
         return malfunction, MSG
+
+
+if __name__ == "__main__":
+    mycan = Receiver()
+
+    while True:
+        i, p, e = mycan.receive()
+
+        print(i, p, e)

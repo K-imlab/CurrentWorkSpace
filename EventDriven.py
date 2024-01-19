@@ -75,7 +75,7 @@ class MonitoringSystem:
         """
         try:
             message_id, data, events = self.receiver.receive()
-            ready = not sum([x is None for x in self.receiver.periodic_data.values()])
+            ready = not sum([x is None for x in data.values()])
         except Exception as e:
             ready = False
             data = None
@@ -85,8 +85,8 @@ class MonitoringSystem:
         return ready, data, message_id, events
 
     def _check_activation(self, data) -> bool:
-        activation_mode = (data['engine_speed'] > 1500) & (data['status'] < 1) & (data['temp'] > 40) & (
-                    data['kine_viscosity'] < 50)
+        # activation_mode = (data['engine_speed'] > 1500) & (data['StMsgCode'] < 1) & (data['OilAvrgTmp'] > 40) & (data['kine_viscosity'] < 50)
+        activation_mode = True
         return activation_mode
 
     def long_term_events(self):
@@ -199,7 +199,7 @@ class MonitoringSystem:
             if not ready or data is None:
                 continue
             elif ready and data is not None:
-                data['kine_viscosity'] = data['visco'] / (data['density'] + sys.float_info.epsilon)
+                data['kine_viscosity'] = data['OilVcsty'] / (data['Oildensity'] + sys.float_info.epsilon)
                 act_mode = self._check_activation(data)
                 if not act_mode:
                     continue
@@ -216,15 +216,15 @@ class MonitoringSystem:
                     if self.use_reference_formula:
                         monitor_visco = RealTimeMonitoring(percent_margin=20, method=VISCOSITY_METHOD, VG=self.viscosity_grade)
                         res_visco_t, abnormal_visco, low_thresh_visco, high_thresh_visco = monitor_visco.monitor(
-                            data['kine_viscosity'], data['temp'])
+                            data['kine_viscosity'], data['OilAvrgTmp'])
                         warning_level = bool(abnormal_visco)
                         low_thresh_dielec = -1
                         high_thresh_dielec = -1
                     else:
                         res_dielec_t, abnormal_dielec, low_thresh_dielec, high_thresh_dielec = self.monitor_dielec.monitor(
-                            data['dielec'], data['temp'])
+                            data['Oildieleccst'], data['OilAvrgTmp'])
                         res_visco_t, abnormal_visco, low_thresh_visco, high_thresh_visco = self.monitor_visco.monitor(
-                            data['kine_viscosity'], data['temp'])
+                            data['kine_viscosity'], data['OilAvrgTmp'])
                         warning_level = abnormal_visco + abnormal_dielec
                     if warning_level and self.prev_warning_level != warning_level:
                         self.emit_event('abnormal', {'data': self.buffer, 'warning_level': warning_level, 'formula': (
@@ -233,7 +233,7 @@ class MonitoringSystem:
 
                     self.prev_warning_level = warning_level
 
-                    print(f"\r[BUFFER]{self.buffer.count} [[DIELEC]{low_thresh_dielec: .3f}<{data['dielec']: .3f}<{high_thresh_dielec: .3f}] [[VISCO]{low_thresh_visco: .3f}<{data['kine_viscosity']: .3f}<{high_thresh_visco: .3f}] [TRIG]{self.trigger_q}", end="")
+                    print(f"\r[BUFFER]{self.buffer.count} [[DIELEC]{low_thresh_dielec: .3f}<{data['Oildieleccst']: .3f}<{high_thresh_dielec: .3f}] [[VISCO]{low_thresh_visco: .3f}<{data['kine_viscosity']: .3f}<{high_thresh_visco: .3f}] [TRIG]{self.trigger_q}", end="")
             else:
                 # something wrong, throw error
                 raise('Error! while making data')
