@@ -61,7 +61,7 @@ VISCOSITY_METHOD = 'vogel'  # 'power'
 
 MAX_BUFFER_SIZE = 360
 
-ABNORMAL_TOLERANCE = 60
+ABNORMAL_TOLERANCE = 2
 SENSOR_OUT_TOLERANCE = 120
 SENSOR_RESPONSE_TOLERANCE = CAN_Hz * 300
 
@@ -76,51 +76,91 @@ ENGINE = {'oil': 'engine', 'PERCENT_MARGIN_DIELECTRIC': 3, 'PERCENT_MARGIN_VISCO
 
 
 class Receiver:
-    def __init__(self):
-        events = [
-            {"can_id": 0x18EF4A28, "can_mask": 0x1FFFFFFF, "extended": True},
-            {"can_id": 0x18EFFFFF, "can_mask": 0x1FFFFFFF, "extended": True},
-            {"can_id": 0x18FFB334, "can_mask": 0x1FFFFFFF, "extended": True},
-        ]
-        periodics = [
-            {"can_id": 0x18FEEE3F, "can_mask": 0x1FFFFFFF, "extended": True },
-            {"can_id": 0x18FF313F, "can_mask": 0x1FFFFFFF, "extended": True },
-            {"can_id": 0x1CFA673F, "can_mask": 0x1FFFFFFF, "extended": True },
-            {"can_id": 0x1CFD083F, "can_mask": 0x1FFFFFFF, "extended": True },
-            # {"can_id": 0x18FEEEAE, "can_mask": 0x1FFFFFFF, "extended": True },
-            # {"can_id": 0x18FF31AE, "can_mask": 0x1FFFFFFF, "extended": True },
-            # {"can_id": 0x1CFA67AE, "can_mask": 0x1FFFFFFF, "extended": True },
-            # {"can_id": 0x1CFD08AE, "can_mask": 0x1FFFFFFF, "extended": True }
-        ]
-        filters = periodics + events
-
+    def __init__(self, device, dataCAN, eventCAN):
         self.db = cantools.database.load_file('VSS_J1939.dbc')  # FIXME 18FF31 DBC tnwjd
-        self.bus = can.interface.Bus(channel='can1', bustype='socketcan', can_filters=filters)
-        
-        self.msgs = [self.db.get_message_by_frame_id(e['can_id']) for e in periodics]
-        self.event_q = []
+        target_ids = [target['can_id'] for target in dataCAN]
+        SAs = set([target & 0xFF for target in target_ids])
+        self.data_SA = {key: [] for key in SAs}
+        self.name_SA = {key: [] for key in SAs}
 
-        self.target_signals = ['OilAvrgTmp', 'StMsgCode', 'OilVcsty', 'Oildensity','Oildieleccst']
-        self.periodic_data = {key: None for key in self.target_signals}
-
-        self.event_signals = ['OilChange', 'SensorChange', 'ChangeVG', 'KeyStChange']
-
-    def receive(self,):
-        ops = self.bus.recv()
-        decode_messages = self.db.decode_message(ops.arbitration_id, ops.data)
-        signal_names = decode_messages.keys()
-        signal_value = decode_messages.values()
-        for name, value in zip(signal_names, signal_value):
-            if name in self.target_signals:
-                self.periodic_data[name] = value
-            elif name in self.event_signals:
-                self.event_q.append({'event': name, 'value': value})
-            else:
-                print("NOT MY BUSINESS", name, value)
-        return ops.arbitration_id, self.periodic_data, self.event_q
+        self.event_ids = [target['can_id'] for target in eventCAN]
+        for target_id in target_ids:
+            SA = target_id & 0xFF
+            names = self.db.get_message_by_frame_id(target_id).signal_tree
+            self.name_SA[SA] += names
+        for SA in SAs:
+            self.data_SA[SA] = {key: None for key in self.name_SA[SA]}
+        self.events = []
+        self.bus = can.interface.Bus(channel=device, bustype='socketcan', can_filters=dataCAN+eventCAN)
     
-    def init_data(self):
-        self.periodic_data = {key: None for key in self.target_signals}
+    def receive(self):
+        ops = self.bus.recv()
+        recv_id = ops.arbitration_id
+        SA = recv_id & 0xFF
+        decode_messages = self.db.decode_message(recv_id, ops.data)
+        if recv_id in self.event_ids:
+            self.events.append(decode_messages)
+        else:
+            self.data_SA[SA].update(decode_messages)
+        return recv_id
+    # def check_ready(self):
+    #     readyAE = not sum([x is None for x in self.data_SA[0xAE].values()])
+    #     ready3F = not sum([x is None for x in self.data_SA[0x3F].values()])
+    #     return readyAE, ready3F, self.data_dict, self.events
+    
+    def init_data(self, SA):
+        self.data_SA[SA] = {key: None for key in self.name_SA[SA]}
+
+
+class Sender:
+    def __init__(self):
+        self.db = cantools.database.load_file('VSS_J1939.dbc')
+        target = [
+                    {"can_id": 0x19FF9F4A, "can_mask": 0x1FFFFFFF, "extended": True },
+                    {"can_id": 0x19FFA04A, "can_mask": 0x1FFFFFFF, "extended": True },
+                    {"can_id": 0x19FFA14A, "can_mask": 0x1FFFFFFF, "extended": True},
+                    {"can_id": 0x19FF904A, "can_mask": 0x1FFFFFFF, "extended": True},
+                ]
+        self.bus = can.interface.Bus(channel='can1', bustype='socketcan', can_filters=target)
+        self.kv_eng = 0
+        self.kv_hyd = 0
+        self.warn_hyd = 0
+        self.warn_eng = 0
+
+    def send_warning_popup(self, warning_level, name):
+        can_id = 0x19FF904A
+        if name == 'HydraulicOil':
+            byte1 = self.db.encode_message(can_id, {'WarnPopHyhOilQual': warning_level,'WarnPopEgOilQual': self.warn_eng})
+            self.warn_hyd = warning_level
+        if name == 'EngineOil':
+            byte1 = self.db.encode_message(can_id, {'WarnPopHyhOilQual': self.warn_hyd,'WarnPopEgOilQual': warning_level})
+            self.warn_eng = warning_level
+        msg = can.Message(arbitration_id=can_id, data=byte1)
+        self.bus.send(msg)
+        print(f"\n CAN Tx ID: {hex(can_id)}, msg: {byte1}")  # FIXME can tx
+
+    def cansend_EVtest(self, kine_v, ltd, htd, ltv, htv, name):
+        if name == 'EngineOil':
+            data_field = self.db.encode_message(0x19FFA04A, {'UpThDielecCstofEgOil': htd, 'LwThDielecCstofEgOil': ltd,
+                                       'UpThKnmtVcstyofEgOil': htv, 'LwThKnmtVcstyofEgOil': ltv})
+            msg = can.Message(arbitration_id=0x19FFA04A, data=data_field)
+            self.bus.send(msg)
+
+            data_field = self.db.encode_message(0x19FFA14A, {'KnmtVcstyofEgOil': kine_v, 'KnmtVcstyofHyhOil': self.kv_hyd})
+            msg = can.Message(arbitration_id=0x19FFA14A, data=data_field)
+            self.bus.send(msg)
+            self.kv_eng = kine_v
+
+        elif name == 'HydraulicOil':
+            data_field = self.db.encode_message(0x19FF9F4A, {'UpThDielecCstofHyhOil': htd, 'LwThDielecCstofHyhOil': ltd,
+                                        'UpThKnmtVcstyofHyhOil': htv, 'LwThKnmtVcstyofHyhOil': ltv})
+            msg = can.Message(arbitration_id=0x19FF9F4A, data=data_field)
+            self.bus.send(msg)
+
+            data_field = self.db.encode_message(0x19FFA14A, {'KnmtVcstyofHyhOil': kine_v, 'KnmtVcstyofEgOil': self.kv_eng})
+            msg = can.Message(arbitration_id=0x19FFA14A, data=data_field)
+            self.bus.send(msg)
+            self.kv_hyd = kine_v
 
 
 class ReceiverMAT:
@@ -274,6 +314,7 @@ class RealTimeMonitoring:
         self.gauge = int(self.gauge * anomaly) + int(anomaly)
         if self.gauge >= self.tolerance:
             ABNORMAL = True
+            self.gauge = 0
         else:
             ABNORMAL = False
         return anomaly, ABNORMAL, lt, ut

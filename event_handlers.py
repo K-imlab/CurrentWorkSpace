@@ -55,7 +55,7 @@ def handle_buffer_is_full(data):
     print("\nHANDLER buffer_is_full")
     dielec, kine_visco, temper = data['data'].values()
     coefficient_linear, coefficient_visco = data['formula']
-
+    
     nom, _, _, trend_linear = analysis(LINEAR_CONSTANT(*coefficient_linear), temper, dielec)
     if VISCOSITY_METHOD == "vogel":
         nom, _, _, trend_visco = analysis_vogel(VOGEL_CONSTANT(*coefficient_visco), temper, kine_visco)
@@ -77,15 +77,6 @@ def handle_sensor_replaced(data):
 
 
 def handle_abnormal(data):
-    warning_level = data['warning_level']
-    byte1 = 0b00000000
-    if HYDRAULIC:
-        byte1 = byte1 | warning_level
-    if ENGINE:
-        byte1 = (byte1 | warning_level) << 3
-    can_id = 0x19FF904A
-    print(f"\n CAN Tx ID: {hex(can_id)}, msg: {hex(byte1)}")  # FIXME can tx
-
     '''1. Send to GP/Server buffer sorted by OH,'''
     dielec, kine_visco, temper = data['data'].sorted_values()
 
@@ -114,30 +105,48 @@ def handle_sensor_not_respond(data):
     return
 
 
-def catch_trigger(event_q):
-    if len(event_q):
-        event_dict = event_q.pop()
-        if event_dict['event'] == 'OilChange':
+def catch_trigger(event_q, engine_or_hyd):
+    fmi = event_q['FMI']
+    if event_q['SPN'] == 516282:
+        if engine_or_hyd == 'HydraulicOil':
             out = TRIG_OIL_CHANGED
-            print("catch HYD_OIL_CHG")
-
-        elif event_dict['event'] == 'SensorChange':
-            out = TRIG_SENSOR_REPLACED
-            print("catch Sensor Replaced")
-
-        elif event_dict['event'] == 'HydraulicVG':
-            out = TRIG_CHANGE_OIL_TYPE
-            print("catch select Oil Viscosity Grade")
-
-        elif event_dict['event'] == 'KeyOff':
-            out = TRIG_KEY_OFF
-            print("catch key off")
-
+            print("catch Hydraulic Oil Change")
         else:
             out = TRIG_NONE
-        value = event_dict['value']
+
+    elif event_q['SPN'] == 516281:
+        if engine_or_hyd == 'EngineOil':
+            out = TRIG_OIL_CHANGED
+            print("catch Engine Oil Change")
+        else:
+            out = TRIG_NONE
+
+    elif event_q['SPN'] == 517481:
+        if engine_or_hyd == 'HydraulicOil':
+            out = TRIG_SENSOR_REPLACED
+            print("catch OPSensor Engine REPLACED")
+        else:
+            out = TRIG_NONE
+
+    elif event_q['SPN'] == 517482:
+        if engine_or_hyd == 'EngineOil':
+            out = TRIG_SENSOR_REPLACED
+            print("catch OPSensor Hydraulic REPLACED")
+        else:
+            out = TRIG_NONE
+
+    elif event_q['SPN'] == 517479:
+        if engine_or_hyd == 'HydraulicOil':
+            out = TRIG_CHANGE_OIL_TYPE
+            print("catch select Oil Viscosity Grade")
+        else:
+            out = TRIG_NONE
+
+    elif event_q['SPN'] == 0:
+        out = TRIG_KEY_OFF
+        print("catch key off")
     else:
         out = TRIG_NONE
-        value = None
-    return out, value
+
+    return out, fmi
 

@@ -277,8 +277,9 @@ BO_ 2565810256 KPD1_REQGP: 250 KPD1
 
 BO_ 2565816616 GP_GPSMGW: 250 GP
 
-BO_ 2565818920 GP_GPSMTMS: 250 GP
-
+BO_ 2565818920 GP_GPSMTMS: 8 GP
+ SG_ FMI : 19|5@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SPN : 0|19@1+ (1,0) [0|0] "" Vector__XXX
 BO_ 2565820456 GP_GPSMKPD: 250 GP
 
 BO_ 2565821480 GP_GPSMAVM: 250 GP
@@ -1848,7 +1849,7 @@ BO_ 2566893876 SMK_SMKFOB: 8 SMK
 
 BO_ 2566894154 TMS_TMSSMKD: 8 TMS
 
-BO_ 2566894388 SMK_SMKI: 9 SMK
+BO_ 2566894388 SMK_SMKI: 8 SMK
  SG_ DeicerSt : 44|2@1+ (1,0) [0|3] "" Vector__XXX
  SG_ ForcedEgStopCmd : 42|2@1+ (1,0) [0|3] "" Vector__XXX
  SG_ RmRunningSt : 40|2@1+ (1,0) [0|3] "" Vector__XXX
@@ -3396,14 +3397,14 @@ BO_ 2583662666 TGU_PHMWG: 8 TGU
  SG_ WarnPopEgOilQual : 3|3@1+ (1,0) [0|7] "" Vector__XXX
  SG_ WarnPopHyhOilQual : 0|3@1+ (1,0) [0|7] "" Vector__XXX
 
-BO_ 2583666506 TGU_THO: 9 TGU
- SG_ LwThKnmtVcstyofHyhOil : 52|16@1+ (1,0) [0|65535] "" Vector__XXX
+BO_ 2583666506 TGU_THO: 8 TGU
+ SG_ LwThKnmtVcstyofHyhOil : 48|16@1+ (1,0) [0|65535] "" Vector__XXX
  SG_ UpThKnmtVcstyofHyhOil : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
  SG_ LwThDielecCstofHyhOil : 16|16@1+ (0.0001220703125,0) [0|7.844] "" Vector__XXX
  SG_ UpThDielecCstofHyhOil : 0|16@1+ (0.0001220703125,0) [0|7.844] "" Vector__XXX
 
-BO_ 2583666762 TGU_TEO: 9 TGU
- SG_ LwThKnmtVcstyofEgOil : 52|16@1+ (1,0) [0|65535] "" Vector__XXX
+BO_ 2583666762 TGU_TEO: 8 TGU
+ SG_ LwThKnmtVcstyofEgOil : 48|16@1+ (1,0) [0|65535] "" Vector__XXX
  SG_ UpThKnmtVcstyofEgOil : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
  SG_ LwThDielecCstofEgOil : 16|16@1+ (0.0001220703125,0) [0|7.844] "" Vector__XXX
  SG_ UpThDielecCstofEgOil : 0|16@1+ (0.0001220703125,0) [0|7.844] "" Vector__XXX

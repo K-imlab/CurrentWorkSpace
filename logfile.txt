@@ -203,3 +203,47 @@
 2024-01-19 04:36:44,783 - INFO - MainThread - <module> - START THREAD
 2024-01-19 04:37:52,483 - INFO - MainThread - <module> - START PROGRAM
 2024-01-19 04:37:58,082 - INFO - MainThread - <module> - START THREAD
+2024-01-23 01:12:33,926 - INFO - MainThread - <module> - START PROGRAM
+2024-01-23 01:13:04,724 - INFO - MainThread - <module> - START PROGRAM
+2024-01-23 01:15:39,978 - INFO - MainThread - <module> - START PROGRAM
+2024-01-23 01:16:41,067 - INFO - MainThread - <module> - START PROGRAM
+2024-01-24 23:52:13,620 - INFO - MS_AE - right_after_trig - 3
+2024-01-24 23:52:19,381 - INFO - MS_3F - right_after_trig - 3
+2024-01-24 23:52:21,353 - INFO - MS_AE - right_after_trig - 4
+2024-01-24 23:52:24,965 - INFO - MS_3F - right_after_trig - 4
+2024-01-24 23:52:31,387 - INFO - MS_3F - right_after_trig - 5
+2024-01-24 23:54:52,178 - INFO - MS_AE - right_after_trig - 3
+2024-01-25 02:19:33,470 - INFO - MS_3F - right_after_trig - 3
+2024-01-25 02:19:56,275 - INFO - MS_3F - right_after_trig - 4
+2024-01-25 02:23:05,469 - INFO - MS_AE - right_after_trig - 3
+2024-01-26 04:40:35,630 - INFO - EC - handle_abnormal - 
+2024-01-26 04:41:05,661 - INFO - EC - handle_abnormal - 
+2024-01-26 04:41:36,413 - INFO - EC - handle_abnormal - 
+2024-01-26 04:42:05,653 - INFO - EC - handle_abnormal - 
+2024-01-26 04:42:36,307 - INFO - EC - handle_abnormal - 
+2024-01-26 04:43:05,659 - INFO - EC - handle_abnormal - 
+2024-01-26 04:44:05,628 - INFO - EC - handle_abnormal - 
+2024-01-26 04:44:05,663 - INFO - EC - handle_abnormal - 
+2024-01-26 04:44:36,353 - INFO - EC - handle_abnormal - 
+2024-01-26 04:45:05,671 - INFO - EC - handle_abnormal - 
+2024-01-26 04:46:05,655 - INFO - EC - handle_abnormal - 
+2024-01-26 04:47:05,632 - INFO - EC - handle_abnormal - 
+2024-01-26 04:47:36,325 - INFO - EC - handle_abnormal - 
+2024-01-26 04:48:05,663 - INFO - EC - handle_abnormal - 
+2024-01-26 04:49:05,626 - INFO - EC - handle_abnormal - 
+2024-01-26 04:49:05,638 - INFO - EC - handle_abnormal - 
+2024-01-26 04:50:05,622 - INFO - EC - handle_abnormal - 
+2024-01-26 04:50:05,641 - INFO - EC - handle_abnormal - 
+2024-01-26 04:50:36,355 - INFO - EC - handle_abnormal - 
+2024-01-26 04:51:05,716 - INFO - EC - handle_abnormal - 
+2024-01-26 04:52:05,594 - INFO - EC - handle_abnormal - 
+2024-01-26 04:52:05,619 - INFO - EC - handle_abnormal - 
+2024-01-26 04:53:05,634 - INFO - EC - handle_abnormal - 
+2024-01-26 04:53:05,648 - INFO - EC - handle_abnormal - 
+2024-01-26 05:09:35,618 - INFO - EC - handle_abnormal - 
+2024-01-26 05:09:35,661 - INFO - EC - handle_abnormal - 
+2024-01-26 05:10:35,593 - INFO - EC - handle_abnormal - 
+2024-01-26 05:10:35,611 - INFO - EC - handle_abnormal - 
+2024-01-26 05:14:05,557 - INFO - EC - handle_abnormal - 
+2024-01-26 05:15:05,580 - INFO - EC - handle_abnormal - 
+2024-01-26 05:15:05,621 - INFO - EC - handle_abnormal - 

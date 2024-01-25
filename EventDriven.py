@@ -43,9 +43,36 @@ class MonitoringSystem:
     def __init__(self, event_queue: queue.Queue, params_queue: queue.Queue):
         self.event_queue = event_queue
         self.params_queue = params_queue
-        self.receiver = Receiver()
+        # self.receiver = Receiver()
         self.buffer = Buffer()
         self.sensor = Sensor()
+
+        can0_event = [
+        ]
+        can0_Eg = [
+            {"can_id": 0x0CF00400, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x18FEE500, "can_mask": 0x1FFFFFFF, "extended": True },
+        ]
+        can1_event = [
+            {"can_id": 0x18EF4A28, "can_mask": 0x1FFFFFFF, "extended": True},
+            {"can_id": 0x18EFFFFF, "can_mask": 0x1FFFFFFF, "extended": True},
+            {"can_id": 0x18FFB334, "can_mask": 0x1FFFFFFF, "extended": True},
+        ]
+        can1_3F = [
+            {"can_id": 0x18FEEE3F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x18FF313F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFA673F, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFD083F, "can_mask": 0x1FFFFFFF, "extended": True }
+        ]
+        can1_AE = [
+            {"can_id": 0x18FEEEAE, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x18FF31AE, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFA67AE, "can_mask": 0x1FFFFFFF, "extended": True },
+            {"can_id": 0x1CFD08AE, "can_mask": 0x1FFFFFFF, "extended": True }
+        ]
+
+        self.recv_bus1 = Receiver('can1', can1_AE+can1_3F, can1_event)
+        self.recv_bus2 = Receiver('can1', can0_Eg, can0_event)
 
         self.monitor_dielec = RealTimeMonitoring(percent_margin=2, method=DIELECTRIC_METHOD, VG=VG46)
         self.monitor_visco = RealTimeMonitoring(percent_margin=20, method=VISCOSITY_METHOD, VG=VG46)
@@ -74,6 +101,9 @@ class MonitoringSystem:
         :return:
         """
         try:
+            self.recv_bus1.receive()
+            self.recv_bus2.receive()
+
             message_id, data, events = self.receiver.receive()
             ready = not sum([x is None for x in data.values()])
         except Exception as e:
@@ -255,17 +285,6 @@ if __name__ == "__main__":
     hyd_consumer.add_event_handler('abnormal', handle_abnormal)
     hyd_consumer.add_event_handler('sensor_not_respond', handle_sensor_not_respond)
 
-    # eng_event_que = queue.Queue()  # 공유메모리  event_que = [{"event": 260buffer, }]
-    # params_que = queue.Queue()
-    # eng_consumer = EventConsumer(eng_event_que, params_que)
-    # eng_monitor_system = MonitoringSystem(eng_event_que, params_que)
-    #
-    # # 이벤트 핸들러 등록
-    # eng_consumer.add_event_handler('buffer_is_full', handle_buffer_is_full)
-    # eng_consumer.add_event_handler('sensor_replaced', handle_sensor_replaced)
-    # eng_consumer.add_event_handler('abnormal', handle_abnormal)
-    # eng_consumer.add_event_handler('sensor_not_respond', handle_sensor_not_respond)
-
     # 이벤트 생성 및 처리 루프 실행
     if LOG:
         logger.info("START THREAD")
@@ -275,12 +294,6 @@ if __name__ == "__main__":
     hyd_consumer_thread = threading.Thread(target=hyd_consumer.process_events, args=(), name='hyd_consumer')
     hyd_consumer_thread.start()
 
-    # eng_monitoring_thread = threading.Thread(target=eng_monitor_system.process_run, args=(), name='eng_monitor')
-    # eng_monitoring_thread.start()
-    # eng_consumer_thread = threading.Thread(target=eng_consumer.process_events, args=(), name='eng_consumer')
-    # eng_consumer_thread.start()
-
     hyd_monitoring_thread.join()
     hyd_consumer_thread.join()
-    # eng_monitoring_thread.join()
-    # eng_consumer_thread.join()
+    
